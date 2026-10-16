@@ -1,5 +1,5 @@
-import main.java.notification.*;
-import main.java.sender.*;
+import notification.*;
+import sender.*;
 import java.util.List;
 
 public class Main {
@@ -8,6 +8,8 @@ public class Main {
         TelegramMessageSender telegram = new TelegramMessageSender();
         EmailMessageSender email = new EmailMessageSender();
         SmsMessageSender sms = new SmsMessageSender();
+        PushNotificationSender push = new PushNotificationSender();
+        KafkaEventSender kafka = new KafkaEventSender();
 
         print("1. UrgentNotification - Telegram");
         Notification urgent = new UrgentNotification(telegram);
@@ -33,6 +35,14 @@ public class Main {
         Notification withFallback = new UrgentNotification(telegram, sms);
         withFallback.send("+77010000001", "Server is down");
         telegram.setAvailable(true);
+
+        print("6. MarketingNotification + PushNotificationSender (new classes)");
+        Notification marketing = new MarketingNotification(push);
+        marketing.send("alice", "50% discount today!");
+
+        print("Bonus: the same MarketingNotification with Kafka");
+        marketing.setSender(kafka);
+        marketing.send("alice", "50% discount today!");
     }
 
     private static void print(String text) {

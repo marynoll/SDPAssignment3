@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BridgeTests {
+public class BridgeTests {
 
     private final TelegramMessageSender telegram = new TelegramMessageSender();
     private final EmailMessageSender email = new EmailMessageSender();
@@ -118,5 +118,15 @@ class BridgeTests {
         new EncryptedNotification(push).send("alice", "secret");
 
         assertEquals(1, push.getSentMessages().size());
+    }
+    @Test
+    void marketingNotificationWorksWithExistingSenders() {
+        Notification marketing = new MarketingNotification(email);
+        marketing.send("alice@mail.com", "50% off");
+        marketing.setSender(kafka);
+        marketing.send("alice", "50% off");
+
+        assertTrue(email.getSentMessages().get(0).contains("[PROMO] 50% off"));
+        assertTrue(kafka.getSentMessages().get(0).contains("[PROMO] 50% off"));
     }
 }
