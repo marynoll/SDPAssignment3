@@ -1,4 +1,7 @@
 package main.java.sender;
 
-public class MessageSender {
+public interface MessageSender {
+    boolean sendMessage(String recipient, String title, String body);
+    boolean isAvailable();
+    String getChannelName();
 }
