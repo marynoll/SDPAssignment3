@@ -12,6 +12,7 @@ class BridgeTests {
     private final EmailMessageSender email = new EmailMessageSender();
     private final SmsMessageSender sms = new SmsMessageSender();
     private final KafkaEventSender kafka = new KafkaEventSender();
+    private final PushNotificationSender push = new PushNotificationSender();
 
     @Test
     void urgentNotificationIsDeliveredWithUrgentPrefix() {
@@ -111,5 +112,11 @@ class BridgeTests {
         kafka.setAvailable(false);
 
         assertFalse(kafka.sendMessage("alice", "t", "b"));
+    }
+    @Test
+    void pushSenderWorksWithExistingEncryptedNotification() {
+        new EncryptedNotification(push).send("alice", "secret");
+
+        assertEquals(1, push.getSentMessages().size());
     }
 }
