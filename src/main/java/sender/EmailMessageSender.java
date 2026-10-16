@@ -1,4 +1,4 @@
-package main.java.sender;
+package sender;
 
 public class EmailMessageSender extends BaseSender {
 

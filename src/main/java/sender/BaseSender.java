@@ -1,4 +1,4 @@
-package main.java.sender;
+package sender;
 
 import java.util.ArrayList;
 import java.util.List;

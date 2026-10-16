@@ -1,6 +1,6 @@
-package main.java.notification;
+package notification;
 
-import main.java.sender.MessageSender;
+import sender.MessageSender;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

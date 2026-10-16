@@ -1,4 +1,4 @@
-package main.java.sender;
+package sender;
 
 public interface MessageSender {
     boolean sendMessage(String recipient, String title, String body);
